@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz</title>
+    <style>
+        body {
+            position: relative;
+            min-height: 100vh;
+        }
+
+        footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+
+        #best-score {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #eee;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="best-score">
+        Best Score: {{ best_score }}%
+    </div>
+
+    <h1>Quiz</h1>
+    <form method="POST" action="/quiz">
+        <!-- Question about the user's name -->
+        <h2>Question 1: What is your name?</h2>
+        <input type="text" name="username" required>
+
+        {% for question in questions %}
+            <h2>Question {{ loop.index }}: {{ question['questions'] }}</h2>
+            {% for option in question['options'].split(',') %}
+                <input type="radio" name="question{{ question['id'] }}" value="{{ option.strip() }}"> {{ option.strip() }}<br>
+            {% endfor %}
+        {% endfor %}
+
+        <br>
+        <input type="submit" value="Submit Answers">
+    </form>
+
+    <!-- Footer with information about the author -->
+      <footer>
+       Rana Yalcin | Full-stack developer
+    </footer>
+</body>
+</html>
